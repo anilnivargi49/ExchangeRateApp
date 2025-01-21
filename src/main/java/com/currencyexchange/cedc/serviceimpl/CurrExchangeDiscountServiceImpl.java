@@ -39,7 +39,7 @@ public class CurrExchangeDiscountServiceImpl implements CurrExchangeDiscountServ
 		BigDecimal amount = totalAmountExcludeGrocery.subtract(discountedAmount).add(totalGroceryAmount);
 		if (apiResponse.getResult().equalsIgnoreCase("success")) {
 			Double targetCurrencyRate = apiResponse.getConversion_rates().get(billDetailsDto.getTargetCurrency());
-			return amount.multiply(new BigDecimal(targetCurrencyRate));
+			return amount.multiply(new BigDecimal(targetCurrencyRate)).setScale(4, RoundingMode.HALF_UP);
 		}
 		return amount;
 	}
